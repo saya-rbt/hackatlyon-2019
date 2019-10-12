@@ -6,7 +6,7 @@ import { DocumentNode } from 'graphql';
 // Instantiate required constructor fields
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'https://arc-hackatlyon-2019.herokuapp.com/',
+  uri: 'https://arc-hackatlyon-2019.herokuapp.com/v1/graphql',
 });
 
 const client = new ApolloClient({

@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { query } from './graphql';
+import { query } from '@/services/graphql';
 
 interface User {
   name: string;
@@ -7,7 +7,7 @@ interface User {
 }
 
 async function getUser(id: number): Promise<User> {
-  return query<User>(gql`
+  const data = await query<{ user_by_pk: User }>(gql`
     query getUserById {
       user_by_pk(id_user: ${id}) {
         name
@@ -15,6 +15,8 @@ async function getUser(id: number): Promise<User> {
       }
     }
   `);
+
+  return data.user_by_pk;
 }
 
 export { User, getUser };
