@@ -1,2 +1,5 @@
-# hackatlyon-2019
-Sopra Steria's Hack@Lyon hackathon event repo
+# ARC (Appliance Resurrection Chain)
+
+## Sopra Steria's Hack@Lyon 2019 hackathon event repo
+
+WIP
