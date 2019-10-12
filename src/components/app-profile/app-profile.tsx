@@ -1,5 +1,5 @@
-import { Component, Prop, h } from '@stencil/core';
-import { MatchResults } from '@stencil/router';
+import { Component, h, State } from '@stencil/core';
+import { User, getUser } from '@/services/user';
 
 @Component({
   tag: 'app-profile',
@@ -7,25 +7,19 @@ import { MatchResults } from '@stencil/router';
   shadow: true
 })
 export class AppProfile {
-  @Prop() match: MatchResults;
+  @State() user?: User;
 
-  normalize(name: string): string {
-    if (name) {
-      return name.substr(0, 1).toUpperCase() + name.substr(1).toLowerCase();
-    }
-    return '';
+  async componentDidLoad() {
+    this.user = await getUser(1);
   }
 
   render() {
-    if (this.match && this.match.params.name) {
+    if (this.user) {
       return (
-        <div class="app-profile">
-          <p>
-            Hello! My name is {this.normalize(this.match.params.name)}. My name was passed in
-            through a route param!
-          </p>
-        </div>
+        <h1>{this.user.name} {this.user.surname.toUpperCase()}</h1>
       );
+    } else {
+      return <div>Fetching user...</div>
     }
   }
 }
