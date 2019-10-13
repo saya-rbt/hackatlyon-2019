@@ -1,0 +1,214 @@
+# 1. En tant que Manager1, je me connecte et je vois tous les appareils qui me sont reliés (Optionnel: afficher les caractéristiques)
+
+query{
+	applianceRef(where: {appliances:{manager_id:{_eq:1}}}){
+		appliances{
+			id_appliance
+		}
+		name
+	}
+}
+
+# 2. En tant que Manager1, je déclare un de mes appareils "non utilisé"
+
+mutation update_appliance($id: Int){
+	update_appliance(
+		where: {id_appliance: {_eq: $id}},
+		_set:{
+			appliance_status_id:2
+		}
+	){
+		affected_rows
+		returning{
+			id_appliance
+			status{
+				id_appliance_status
+			}
+		}
+	}
+}
+
+# 3. En tant qu'Assitant, je déclare l'état de l'appareil à "récupéré"
+
+query{
+	applianceRef(where: {appliances:{status:{id_appliance_status:{_eq:2}}}}){
+		appliances{
+			id_appliance
+		}
+		name
+	}
+}
+
+mutation update_appliance($id: Int){
+	update_appliance(
+		where: {id_appliance: {_eq: $id}},
+		_set:{
+			appliance_status_id:8
+			manager_id:3
+		}
+	){
+		affected_rows
+		returning{
+			id_appliance
+			status{
+				id_appliance_status
+			}
+		}
+	}
+}
+
+# 4. En tant que DSI, je change l'état de l'appareil à "disponible" (Optionnel: ou à "à donner")
+
+mutation update_appliance($id: Int, $loc_id: Int){
+	update_appliance(
+		where: {id_appliance: {_eq: $id}},
+		_set:{
+			location_id:$loc_id
+			appliance_status_id:4
+			manager_id:2
+		}
+	){
+		affected_rows
+		returning{
+			id_appliance
+			status{
+				id_appliance_status
+			}
+		}
+	}
+}
+
+# 5. En tant que Manager1, je constate que l'appareil ne m'est plus lié
+
+query{
+	applianceRef(where: {appliances:{manager_id:{_eq:1}}}){
+		appliances{
+			id_appliance
+		}
+		name
+	}
+}
+
+# 6. En tant que Manager2, j'effectue une recherche sur les appareils disponibles
+
+query {
+	appliance(where: {appliance_status_id: {_eq: 4}}) {
+		id_appliance
+		ref {
+			name
+		}
+	}
+}
+
+# 7. En tant que Manager2, je commande l'appareil de mon choix
+
+mutation insert_order($appl_ids:[order_insert_input!]!)
+{
+	insert_order(objects:$appl_ids) # data: {"appl_ids": [{"appliances": {"data": {"appliance_id": 1}}},{"appliances": {"data": {"appliance_id": 2}}}]}
+	{
+		returning{
+			id_order,
+			asker_id,
+			request_step_id,
+			requestStep{
+				label
+			}
+		}
+	}
+}
+
+# 8. En tant que DSI, je souhaite traiter la commande
+
+mutation update_order($id:Int)
+{
+	update_order(
+		where: {id_order:{_eq:$id}}
+		_set:{
+			request_step_id:2
+		}
+	){
+		affected_rows
+		returning{
+			id_order,
+			asker_id,
+			request_step_id,
+			requestStep{
+				label
+			}
+		}
+	}
+}
+
+# 9. En tant qu'Assistant, je passe l'état à "Livré"
+
+query{
+	order(where: {request_step_id: {_eq: 2}}) {
+		id_order
+		asker_id
+		request_step_id
+		requestStep {
+			label
+		}
+	}
+}
+
+mutation update_order($id:Int)
+{
+	update_order(
+		where: {id_order:{_eq:$id}}
+		_set:{
+			request_step_id:4
+		}
+	){
+		affected_rows
+		returning{
+			id_order,
+			asker_id,
+			request_step_id,
+			requestStep{
+				label
+			}
+		}
+	}
+}
+mutation update_appliance($loc_id:Int, $ord_id:Int)
+{
+  update_appliance(
+    where: {
+      orders:{
+        order_id:{_eq:$ord_id}
+      }
+    }
+    _set:
+    {
+      location_id:$loc_id
+    }
+  ){
+    affected_rows
+    returning{
+      orders{
+        order_id
+      }
+    }
+  }
+}
+
+# 10. En tant que Manager2, je vois l'équipement dans mon stock et plus sur la liste des appareils disponibles
+
+query{
+	applianceRef(where: {appliances:{manager_id:{_eq:2}}}){
+		appliances{
+			id_appliance
+		}
+		name
+	}
+}
+
+query {
+	appliance(where: {appliance_status_id: {_eq: 4}}) {
+		id_appliance
+		ref {
+			name
+		}
+	}
+}
