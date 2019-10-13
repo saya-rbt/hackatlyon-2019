@@ -42,7 +42,7 @@ export class AppMarket {
 
   render() {
     return [
-      <h1 class="is-size-1"></h1>,
+      <h1 class="is-size-1">Marché</h1>,
       !this.appliances ? (
         <progress class="progress is-primary">Loading...</progress>
       ) : (
