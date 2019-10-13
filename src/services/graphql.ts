@@ -13,6 +13,16 @@ const client = new ApolloClient({
   cache: cache,
   link: link,
   name: 'arc-web-client',
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  }
 });
 
 export async function query<T>(query: DocumentNode): Promise<T> {
