@@ -10,9 +10,9 @@ export class AppRoot {
       <div>
         <nav class="navbar has-shadow is-primary" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
-            <stencil-route-link class="navbar-item" url="/home">
+            <div class="navbar-item">
               <img src="../../assets/arc-logo_dark.png" />
-            </stencil-route-link>
+            </div>
 
             <a
               role="button"
