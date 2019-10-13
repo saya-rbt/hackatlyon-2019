@@ -1,4 +1,4 @@
-import { User, getUser } from "@/repositories/User";
+import { User, getUser } from "@/repositories/user";
 import { Role } from "@/repositories/Role";
 
 export let user: User | undefined;
