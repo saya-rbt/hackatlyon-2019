@@ -70,7 +70,7 @@ export class AppHome {
             <div class="column">Type</div>
             <div class="column">Référent</div>
             <div class="column">Statut</div>
-            <div class="column">Séléctionner</div>
+            <div class="column">Sélectionner</div>
             <div class="column"></div>
           </div>,
 

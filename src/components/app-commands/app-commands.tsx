@@ -56,7 +56,7 @@ export class AppCommands {
           <div class="columns has-border is-border-thick">
             <div class="column">Demandeur</div>
             <div class="column">Etape</div>
-            {user.role.id_role !== 1 && <div class="column">Séléctionner</div>}
+            {user.role.id_role !== 1 && <div class="column">Sélectionner</div>}
             <div class="column"></div>
           </div>,
           this.orders.map((order, index) => [

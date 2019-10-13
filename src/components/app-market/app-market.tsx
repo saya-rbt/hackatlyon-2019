@@ -52,7 +52,7 @@ export class AppMarket {
           </div>,
           <div class="columns has-border is-border-thick">
             <div class="column">Type</div>
-            <div class="column">Séléctionner</div>
+            <div class="column">Sélectionner</div>
             <div class="column"></div>
           </div>,
           this.appliances.map((appliance, index) => [
