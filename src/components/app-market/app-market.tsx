@@ -37,7 +37,7 @@ export class AppMarket {
     let selected = this.appliances.filter((_, i) => this.selected[i]);
     await orderAppliances(selected);
 
-    this.appliances = [...this.appliances];
+    this.appliances = this.appliances.filter(appliance => !selected.includes(appliance));
   }
 
   render() {
