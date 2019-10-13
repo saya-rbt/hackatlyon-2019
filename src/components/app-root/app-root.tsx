@@ -1,22 +1,27 @@
 import { Component, h } from '@stencil/core';
 
-
 @Component({
   tag: 'app-root',
-  styleUrl: 'app-root.css'
+  styleUrl: 'app-root.css',
 })
 export class AppRoot {
-
   render() {
     return (
       <div>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+        <nav class="navbar has-shadow is-primary" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
-            <a class="navbar-item" href="/">
+            <stencil-route-link class="navbar-item" url="/home">
               <img src="../../assets/arc-logo_dark.png" />
-            </a>
+            </stencil-route-link>
 
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
+            <a
+              role="button"
+              class="navbar-burger burger"
+              aria-label="menu"
+              aria-expanded="false"
+              data-target="main-navbar"
+            >
+              {/* TODO State navbar open */}
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
@@ -25,56 +30,27 @@ export class AppRoot {
 
           <div id="main-navbar" class="navbar-menu">
             <div class="navbar-start">
-              <a class="navbar-item">
-                Home
-              </a>
-
-              <a class="navbar-item">
-                Documentation
-              </a>
-
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                  More
-                </a>
-
-                <div class="navbar-dropdown">
-                  <a class="navbar-item">
-                    About
-                  </a>
-                  <a class="navbar-item">
-                    Jobs
-                  </a>
-                  <a class="navbar-item">
-                    Contact
-                  </a>
-                  <hr class="navbar-divider" />
-                  <a class="navbar-item">
-                    Report an issue
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <div class="buttons">
-                  <a class="button is-primary">
-                    <strong>Sign up</strong>
-                  </a>
-                  <a class="button is-light">
-                    Log in
-                  </a>
-                </div>
-              </div>
+              <stencil-route-link class="navbar-item" url="/login">
+                Login
+              </stencil-route-link>
+              <stencil-route-link class="navbar-item" url="/commands">
+                Commandes
+              </stencil-route-link>
+              <stencil-route-link class="navbar-item" url="/market">
+                Marché
+              </stencil-route-link>
             </div>
           </div>
         </nav>
 
-        <main>
-          <stencil-router>
+        <main class="container">
+          <stencil-router titleSuffix=" - ARC">
             <stencil-route-switch scrollTopOffset={0}>
-              <stencil-route url='/' component='app-login' exact={true} />
+              <stencil-route url="/home" component="app-home" exact={true} />
+              <stencil-route url="/market" component="app-market" exact={true} />
+              <stencil-route url="/commands" component="app-commands" exact={true} />
+              <stencil-route url="/login" component="app-login" exact={true} />
+              <stencil-route-redirect url="/login" />
             </stencil-route-switch>
           </stencil-router>
         </main>

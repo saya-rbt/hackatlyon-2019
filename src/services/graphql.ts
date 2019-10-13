@@ -15,7 +15,7 @@ const client = new ApolloClient({
   name: 'arc-web-client',
 });
 
-async function query<T>(query: DocumentNode): Promise<T> {
+export async function query<T>(query: DocumentNode): Promise<T> {
   const response = await client.query({ query });
 
   if (response.errors) {
@@ -26,4 +26,13 @@ async function query<T>(query: DocumentNode): Promise<T> {
   return response.data;
 }
 
-export { query };
+export async function mutate<T>(mutation: DocumentNode): Promise<T> {
+  const response = await client.mutate({ mutation });
+
+  if (response.errors) {
+    // TODO Handle errors
+    throw response.errors;
+  }
+
+  return response.data;
+}
