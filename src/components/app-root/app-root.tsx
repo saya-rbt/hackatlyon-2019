@@ -8,7 +8,7 @@ export class AppRoot {
   render() {
     return (
       <div>
-        <nav class="navbar has-shadow is-primary" role="navigation" aria-label="main navigation">
+        <nav class="navbar has-shadow is-navbar-color" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
             <div class="navbar-item">
               <img src="../../assets/arc-logo_dark.png" />

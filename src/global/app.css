@@ -25,3 +25,7 @@ body {
 .is-border-thick {
   border-bottom-width: 2px;
 }
+
+.navbar.is-navbar-color {
+  background-color: #bad7df;
+}
